@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为CommentsDao接口方法提供sql语句配置 -->
+<mapper namespace="com.oracle.film.dao.CommentsDao">
+
+    <insert id="addComment">
+        insert into comments(commenttext , userid, filmid) values (#{commenttext},#{userid},#{filmid})
+    </insert>
+
+    <select id="listAllComments" resultType="com.oracle.film.pojo.Comments">
+        select commentid,commenttext,commenttime,username,nickname,uimage,filmid,comments.userid from comments ,user where comments.userid = user.userid  ORDER BY commenttime desc
+    </select>
+
+    <select id="queryCommentsByfilmid" resultType="com.oracle.film.pojo.Comments">
+        select commentid,commenttext,commenttime,username,nickname,uimage,filmid,comments.userid from comments ,user where comments.userid = user.userid and filmid =#{filmid}  ORDER BY commenttime desc
+    </select>
+
+    <select id="queryUserSeeFilmCount" resultType="int">
+        select  count(1) from ppseat,orders where ppseat.sorderid=orders.orderid and userid= #{userid} and filmid = #{filmid}
+    </select>
+
+</mapper>

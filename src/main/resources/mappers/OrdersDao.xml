@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为OrdersDao接口方法提供sql语句配置 -->
+<mapper namespace="com.oracle.film.dao.OrdersDao">
+
+    <insert id="addOrders">
+        insert into orders(totalprice,piaonum,userid,seat,cinemaid,filmid,paipianid) values (#{totalprice},#{piaonum},#{userid},#{seat},#{cinemaid},#{filmid},#{paipianid})
+    </insert>
+
+</mapper>

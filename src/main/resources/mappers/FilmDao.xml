@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为FilmDao接口方法提供sql语句配置 -->
+<mapper namespace="com.oracle.film.dao.FilmDao">
+
+    <select id="listAllFilm" resultMap="resultAllFilmMap">
+        select film.*,filmtype.* from film , filmtype where film.filmtypeid=filmtype.filmtypeid ORDER BY  filmid asc
+    </select>
+    
+    <resultMap id="resultAllFilmMap" type="com.oracle.film.pojo.Film">
+        <id property="filmid" column="filmid"></id>
+        <result property="filmname" column="filmname"></result>
+        <result property="fimage" column="fimage"></result>
+        <result property="showtime" column="showtime"></result>
+        <result property="score" column="score"></result>
+        <result property="actors" column="actors"></result>
+        <result property="fdesc" column="fdesc"></result>
+        <association property="filmtype" javaType="com.oracle.film.pojo.Filmtype">
+            <id property="filmtypeid" column="filmtypeid"></id>
+            <result property="filmtypename" column="filmtypename"></result>
+        </association>
+    </resultMap>
+
+    <select id="queryFilmById" resultMap="resultAllFilmMap">
+        select film.*,filmtype.* from film , filmtype where film.filmtypeid=filmtype.filmtypeid and filmid=#{filmid} ORDER BY  filmid asc
+    </select>
+
+    <select id="queryFilmCount" resultType="int">
+        select count(*) from film
+    </select>
+
+    <select id="queryAllFilmByFilmtypeId" resultMap="resultAllFilmMap">
+        select film.*,filmtype.* from film , filmtype where film.filmtypeid=filmtype.filmtypeid and film.filmtypeid=#{filmtypeid} ORDER BY  filmid asc
+    </select>
+
+    <select id="searchFilmByName"  resultMap="resultAllFilmMap" parameterType="String">
+        select film.*,filmtype.* from film , filmtype where film.filmtypeid=filmtype.filmtypeid and filmname like CONCAT("%", #{filmname}, "%") ORDER BY  filmid asc
+    </select>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为FilmPaiPianDao接口方法提供sql语句配置 -->
+<mapper namespace="com.oracle.film.dao.FilmPaiPianDao">
+
+    <select id="listAllPaiPianFilm" resultType="com.oracle.film.pojo.FilmPaiPian">
+        select paipianid,film.filmid,filmname,fimage,showtime,score,actors,fdesc,film.filmtypeid,filmtypename,cinema.cinemaid,cinemaname,caddr,cdesc,cimage,ctel from film,paipian,cinema ,filmtype where film.filmid=paipian.filmid and paipian.cinemaid=cinema.cinemaid and film.filmtypeid=filmtype.filmtypeid
+    </select>
+
+    <select id="queryAllPaiPianFilmById" resultType="com.oracle.film.pojo.FilmPaiPian">
+        select paipianid,starttime,filmprice,film.filmid,filmname,fimage,showtime,score,actors,fdesc,film.filmtypeid,filmtypename,cinema.cinemaid,cinemaname,caddr,cdesc,cimage,ctel from film,paipian,cinema ,filmtype where film.filmid=paipian.filmid and paipian.cinemaid=cinema.cinemaid and film.filmtypeid=filmtype.filmtypeid and film.filmid=#{filmid} and paipian.starttime>(select current_timestamp from dual) order by  starttime asc;
+    </select>
+
+    <select id="queryPaiPianById" resultType="com.oracle.film.pojo.FilmPaiPian">
+        select paipianid,starttime,filmprice,film.filmid,filmname,fimage,showtime,score,actors,fdesc,film.filmtypeid,filmtypename,cinema.cinemaid,cinemaname,caddr,cdesc,cimage,ctel from film,paipian,cinema ,filmtype where film.filmid=paipian.filmid and paipian.cinemaid=cinema.cinemaid and film.filmtypeid=filmtype.filmtypeid and paipianid=#{paipianid} and paipian.starttime>(select current_timestamp from dual);
+    </select>
+
+</mapper>

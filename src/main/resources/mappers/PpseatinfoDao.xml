@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为PpseatinfoDao接口方法提供sql语句配置 -->
+<mapper namespace="com.oracle.film.dao.PpseatinfoDao">
+
+    <select id="listAllppseat" resultType="com.oracle.film.pojo.Ppseatinfo">
+        select seat.seatid,seatX,seatY,cinema,seatnum,seatXY,ppseatid,paipianid,sorderid from ppseat,seat where ppseat.seatid = seat.seatid
+    </select>
+
+    <select id="queryAllppseatBypaipianid"  resultType="com.oracle.film.pojo.Ppseatinfo">
+        select seat.seatid,seatX,seatY,cinema,seatnum,seatXY,ppseatid,paipianid,sorderid from ppseat,seat where ppseat.seatid = seat.seatid and ppseat.paipianid=#{ppseat.paipianid}
+    </select>
+
+</mapper>
